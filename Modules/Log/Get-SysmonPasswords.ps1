@@ -3,8 +3,6 @@
     Get-SysmonPassword.ps1 extracts all Sysmon Events and looks for common commandline arguments that may contain a username and password
 .DESCRIPTION
     Query the event log and pull back all Sysmon events searching for common commandline arguments that may contain passwords. Configured for Sysmon 10
-    Event 3
-    Query and filter
 .EXAMPLE
     .\Get-SysmonNetwork.ps1
     HostName    : Computername
@@ -21,7 +19,7 @@
     Configured for Sysmon 10
     Sysmon configuration plays a large part in the amount of events.
     For offline parsing of event logs modify script to remove "-LogName" and add "-Path <PATH_to_Logs>". 
-    e.g RawEvents = Get-WinEvent -Path c:\case\sysmon.evtx | Where-Object {$_.TimeCreated -ge $BackTime} | Where-Object { $_.Id -eq 3}
+    e.g RawEvents = Get-WinEvent -Path c:\case\sysmon.evtx |  Where {$_.Message -Match 'schtasks.exe.*\/p' -or $_.Message -match 'net.*\/add' -or $_.Message -match 'wmic.*\/password' -or $_.Message -match 'taskkill.*\/P'  -or $_.Message -match 'tasklist.*\/P'}
 #>
 $RawEvents = Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" | Where {$_.Message -Match 'schtasks.exe.*\/p' -or $_.Message -match 'net.*\/add' -or $_.Message -match 'wmic.*\/password' -or $_.Message -match 'taskkill.*\/P'  -or $_.Message -match 'tasklist.*\/P'}
 $RawEvents | ForEach-Object {  
