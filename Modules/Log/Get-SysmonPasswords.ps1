@@ -2,7 +2,7 @@
 .SYNOPSIS
     Get-SysmonPassword.ps1 extracts all Sysmon Events and looks for common commandline arguments that may contain a username and password
 .DESCRIPTION
-    Query the event log and pull back all Sysmon Process Creation events. Configured for Sysmon 5.02
+    Query the event log and pull back all Sysmon events searching for common commandline arguments that may contain passwords. Configured for Sysmon 10
     Event 3
     Query and filter
 .EXAMPLE
